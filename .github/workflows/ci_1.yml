@@ -14,3 +14,8 @@ jobs:
         run: |
                 echo ${{ steps.ip.outputs.ipv4 }}
                 echo ${{ steps.ip.outputs.ipv6 }}
+      - name: Get Realese
+        run: lsb_release -a
+
+      - name: Get Fecha
+        run: echo $(date)
