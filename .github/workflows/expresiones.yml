@@ -12,8 +12,6 @@ on:
         required: true
         default: 'Valor default'
         type: string
-  push: 
-    branches: ["main"]
   issues: 
     types: 
       - closed
@@ -33,8 +31,7 @@ jobs:
          run: echo ${{ github.ref}} - ${{ github.repository }} - ${{github.event.issue.title}} 
        - id: obtener_version
          run: echo "version=1.0.0" >> $GITHUB_OUTPUT
-       - name: Mostrar version
-         run: echo 'Version: ${{ steps.obtener_version.outputs.version }}'
+       - run: echo ${{steps.obtener_version.outputs.version}}
   mayor:
     if: ${{ inputs.edad >= 18 }}
     runs-on: ubuntu-latest
@@ -57,4 +54,3 @@ jobs:
         run: echo ${{ inputs.nombre }} - ${{ inputs.edad }}
       - name: Retorna Ref - Repository - Issue title
         run: echo ${{ github.ref}} - ${{ github.repository }} - ${{github.event.issue.title}} 
-        
