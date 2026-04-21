@@ -37,8 +37,8 @@ jobs:
        - id: obtener_version
          run: echo "version=1.0.0" >> $GITHUB_OUTPUT
        - run: echo ${{steps.obtener_version.outputs.version}}
-       - name: Mostrar variable de entorno
-         run: echo "Ambiente - ${{ env.AMBIENTE }} - ${{ env.REGION }}"
+       - name: Mostrar variable SECRETS
+         run: echo " Secrets " - ${{ secrets.PASSWORD }}
   mayor:
     if: ${{ inputs.edad >= 18 }}
     runs-on: ubuntu-latest
