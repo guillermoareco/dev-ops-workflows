@@ -12,10 +12,15 @@ on:
         required: true
         default: 'Valor default'
         type: string
+  push: 
+    branches: ["main"]
   issues: 
     types: 
       - closed
       - opened
+env:
+  AMBIENTE: produccion
+  REGION: us-east-1
 jobs:  
   tipo_issue: 
      if: ${{ github.event_name == 'issues' }}
@@ -32,6 +37,8 @@ jobs:
        - id: obtener_version
          run: echo "version=1.0.0" >> $GITHUB_OUTPUT
        - run: echo ${{steps.obtener_version.outputs.version}}
+       - name: Mostrar variable de entorno
+         run: echo "Ambiente - ${{ env.AMBIENTE }} - ${{ env.REGION }}"
   mayor:
     if: ${{ inputs.edad >= 18 }}
     runs-on: ubuntu-latest
@@ -43,7 +50,7 @@ jobs:
       - name: Mostrar usuario
         run: echo ${{ github.actor }}
       - name: Retorna Ref - Repository - Issue title
-        run: echo ${{ github.ref}} - ${{ github.repository }} - ${{github.event.issue.title}} 
+        run: echo Version - ${{ github.ref}} - ${{ github.repository }} - ${{github.event.issue.title}}
   menor:
     if: ${{ inputs.edad < 18 }}
     runs-on: ubuntu-latest
@@ -54,3 +61,4 @@ jobs:
         run: echo ${{ inputs.nombre }} - ${{ inputs.edad }}
       - name: Retorna Ref - Repository - Issue title
         run: echo ${{ github.ref}} - ${{ github.repository }} - ${{github.event.issue.title}} 
+        
